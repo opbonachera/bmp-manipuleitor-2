@@ -156,6 +156,14 @@ void ejecutarComando(char* comando, char* nombresDeArchivos[])
         cambiarTonalidad(img, nombreNuevoArchivo, 0 , modificador);
     if(!strcmp(comando, "--tonalidad_verde"))
         cambiarTonalidad(img, nombreNuevoArchivo, 1 , modificador);
+    if(!strcmp(comando, "--rotar-izquierda"))
+        rotarImagenIzquierda(img, nombreNuevoArchivo);
+    if(!strcmp(comando, "--rotar-derecha"))
+        rotarImagenDerecha(img, nombreNuevoArchivo);
+    if(!strcmp(comando, "--espejar-vertical"))
+        espejarImagenVertical(img, nombreNuevoArchivo);
+    if(!strcmp(comando, "--espejar-horizontal"))
+        espejarImagenHorizontal(img, nombreNuevoArchivo);
 
     free(nombreNuevoArchivo);
     fclose(img);

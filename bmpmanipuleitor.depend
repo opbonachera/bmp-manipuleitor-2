@@ -112,3 +112,38 @@
 	<stdio.h>
 	"funciones_grupo.h"
 
+1725979586 source:c:\users\obonachera\documents\universidad\bmpmanipuleitor\funciones_fernandez.c
+	"funciones_fernandez.h"
+	"funciones_bonachera.h"
+
+1725824899 c:\users\obonachera\documents\universidad\bmpmanipuleitor\funciones_fernandez.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<stdbool.h>
+	"estructuras.h"
+
+1725653278 c:\users\obonachera\documents\universidad\bmpmanipuleitor\estructuras.h
+
+1725977832 c:\users\obonachera\documents\universidad\bmpmanipuleitor\funciones_bonachera.h
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<string.h>
+	"estructuras.h"
+
+1725976625 source:c:\users\obonachera\documents\universidad\bmpmanipuleitor\funciones_grupo.c
+	"funciones_grupo.h"
+
+1725669327 c:\users\obonachera\documents\universidad\bmpmanipuleitor\funciones_grupo.h
+	"funciones_machi.h"
+	"funciones_bonachera.h"
+	"funciones_fernandez.h"
+
+1725650888 source:c:\users\obonachera\documents\universidad\bmpmanipuleitor\main.c
+	<stdio.h>
+	"funciones_grupo.h"
+
+1725980664 source:c:\users\obonachera\documents\universidad\bmpmanipuleitor\funciones_bonachera.c
+	"funciones_bonachera.h"
+
