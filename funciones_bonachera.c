@@ -1,8 +1,11 @@
 #include "funciones_bonachera.h"
+#include "funciones_fernandez.h"
 
+#define OK 0
 #define ERROR_APERTURA_ARCHIVO 1
 #define ERROR_CREACION_ARCHIVO 2
-#define OK 0
+#define FUERA_DE_RANGO 3
+#define SIN_PARAMETROS 4
 
 // Helpers
 bool validarRango(int limiteInferior, int limiteSuperior, int valor)
@@ -10,7 +13,7 @@ bool validarRango(int limiteInferior, int limiteSuperior, int valor)
     return (valor>limiteInferior && valor<limiteSuperior);
 }
 
-int modificarDimensiones(FILE* img, int nuevoX, int nuevoY)
+void modificarDimensiones(FILE* img, int nuevoX, int nuevoY)
 {
     fseek(img, 18, SEEK_SET);
     fwrite(&nuevoX, sizeof(unsigned int), 1, img);
@@ -29,14 +32,14 @@ int obtenerParametro(char* argumento)
         if(!validarRango(0,101,num))
         {
             printf("El parametro no esta dentro del rango aceptado.\n");
-            return -2;
+            return FUERA_DE_RANGO;
         }
 
         return num;
     }else
     {
         printf("No se encontro ningun parametro.\n");
-        return -1;
+        return SIN_PARAMETROS;
     }
 }
 
@@ -79,6 +82,9 @@ int rotarImagenIzquierda(FILE* imagenOriginal, char* nombreNuevoArchivo)
 {
     FILE* nuevaImagen = fopen(nombreNuevoArchivo, "wb");
 
+    if(!nuevaImagen)
+        return ERROR_CREACION_ARCHIVO;
+
     t_metadata cabeceraOriginal, cabeceraNueva;
 
     leerCabecera(imagenOriginal, &cabeceraOriginal);
@@ -112,6 +118,9 @@ int rotarImagenDerecha(FILE* imagenOriginal, char* nombreNuevoArchivo)
 {
     FILE* nuevaImagen = fopen(nombreNuevoArchivo, "wb");
 
+    if(!nuevaImagen)
+        return ERROR_CREACION_ARCHIVO;
+
     t_metadata cabeceraOriginal, cabeceraNueva;
 
     leerCabecera(imagenOriginal, &cabeceraOriginal);
@@ -122,7 +131,6 @@ int rotarImagenDerecha(FILE* imagenOriginal, char* nombreNuevoArchivo)
     int altoOriginal = cabeceraOriginal.alto;
 
     t_pixel imagen[240][360];
-    t_pixel imagenNueva[360][240];
 
     fread(imagen, sizeof(imagen), 1, imagenOriginal);
 
@@ -144,6 +152,9 @@ int rotarImagenDerecha(FILE* imagenOriginal, char* nombreNuevoArchivo)
 int espejarImagenHorizontal(FILE* imagenOriginal, char* nombreNuevoArchivo)
 {
     FILE* nuevaImagen = fopen(nombreNuevoArchivo, "wb");
+
+    if(!nuevaImagen)
+        return ERROR_CREACION_ARCHIVO;
 
     t_metadata cabeceraOriginal, cabeceraNueva;
 
@@ -183,6 +194,9 @@ int espejarImagenHorizontal(FILE* imagenOriginal, char* nombreNuevoArchivo)
 int espejarImagenVertical(FILE* imagenOriginal, char* nombreNuevoArchivo)
 {
     FILE* nuevaImagen = fopen(nombreNuevoArchivo, "wb");
+
+    if(!nuevaImagen)
+        return ERROR_CREACION_ARCHIVO;
 
     t_metadata cabeceraOriginal, cabeceraNueva;
 
