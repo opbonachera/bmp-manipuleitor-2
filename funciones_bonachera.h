@@ -14,6 +14,8 @@
 #define FUERA_DE_RANGO -1
 #define SIN_PARAMETROS 4
 
+#define MIN(x, y) (((x) < (y)) ? (x) : (y))
+
 bool validarRango(int limiteInferior, int limiteSuperior, int valor);
 int  leerCabecera(FILE* file, t_metadata *cabecera);
 int  obtenerParametro(char* argumento);

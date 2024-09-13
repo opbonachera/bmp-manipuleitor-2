@@ -224,12 +224,11 @@ int ejecutarComando(char* comando, char* nombresDeArchivos[])
         }
     }
 
+    int parametro = obtenerParametro(comando);
     char* nombreNuevoArchivo = generarNombreArchivo(comando, nombresDeArchivos);
 
-    int parametro = obtenerParametro(comando);
-
     int resultado = OK;
-
+    printf("nombre nuevo: (%s)", nombreNuevoArchivo);
     if(!strcmp(comando, "--tonalidad-roja") && parametro)
         resultado = cambiarTonalidad(img1, nombreNuevoArchivo, 2 , parametro);
     else if(!strcmp(comando, "--tonalidad-azul") && parametro)
@@ -246,6 +245,8 @@ int ejecutarComando(char* comando, char* nombresDeArchivos[])
         resultado = espejarImagenHorizontal(img1, nombreNuevoArchivo);
     else if(!strcmp(comando, "--escala-de-grises"))
         resultado = escalaDeGrises(img1, nombreNuevoArchivo);
+    else if(!strcmp(comando, "--comodin"))
+        resultado = pixelearImagen(img1, nombreNuevoArchivo);
     else
     {
         printf("\nEl comando \"%s\" no existe o es incorrecto.", comando);
@@ -255,23 +256,24 @@ int ejecutarComando(char* comando, char* nombresDeArchivos[])
 
     free(nombreNuevoArchivo);
     fclose(img1);
-
-    return resultado;
 }
 
 char* generarNombreArchivo(const char* comando, char* nombresDeArchivos[])
 {
     char* nombreGrupo = "MEMORIA_";
-    char* nombreNuevoArchivo = malloc(strlen(nombreGrupo) + strlen(comando+2) + strlen(nombresDeArchivos[0]));
+    char* nombreNuevoArchivo = malloc(strlen(nombreGrupo) + strlen(comando + 2) + strlen(nombresDeArchivos[0]) + 2);
+
+    if (!nombreNuevoArchivo) {
+        return NULL;
+    }
 
     strcpy(nombreNuevoArchivo, nombreGrupo);
-    strcat(nombreNuevoArchivo, comando+2);
+    strcat(nombreNuevoArchivo, comando + 2);
     strcat(nombreNuevoArchivo, "_");
     strcat(nombreNuevoArchivo, nombresDeArchivos[0]);
 
     return nombreNuevoArchivo;
 }
-
 
 void** matrizCrear(size_t tamElem, size_t filas, size_t columnas)
 {

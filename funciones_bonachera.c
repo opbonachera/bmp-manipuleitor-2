@@ -42,6 +42,7 @@ int obtenerParametro(char* argumento)
 }
 
 
+
 int leerCabecera(FILE* img, t_metadata *cabecera)
 {
     printf("\n\n--------");
@@ -226,6 +227,66 @@ int espejarImagenVertical(FILE* imagenOriginal, char* nombreNuevoArchivo)
 
     escribirArchivo(nuevaImagen, matNuevaImagen, cabeceraOriginal.alto, cabeceraOriginal.ancho);
 
+
+    matrizDestruir((void**)matImagen, cabeceraOriginal.alto);
+    matrizDestruir((void**)matNuevaImagen, cabeceraOriginal.alto);
+
+    fclose(nuevaImagen);
+
+    return OK;
+}
+
+
+int pixelearImagen(FILE* imagenOriginal, char* nombreNuevoArchivo)
+{
+    FILE* nuevaImagen = fopen(nombreNuevoArchivo, "wb");
+    printf("el nombre es (%s)", nombreNuevoArchivo);
+
+    if (!nuevaImagen)
+        return ERROR_CREACION_ARCHIVO;
+
+    t_metadata cabeceraOriginal;
+
+    leerCabecera(imagenOriginal, &cabeceraOriginal);
+    escribirCabecera(imagenOriginal, nuevaImagen, &cabeceraOriginal);
+
+
+    t_pixel** matImagen = (t_pixel**)matrizCrear(sizeof(t_pixel), cabeceraOriginal.alto, cabeceraOriginal.ancho);
+    t_pixel** matNuevaImagen = (t_pixel**)matrizCrear(sizeof(t_pixel), cabeceraOriginal.alto, cabeceraOriginal.ancho);
+
+
+    cargarMatriz(imagenOriginal, matImagen, cabeceraOriginal.alto, cabeceraOriginal.ancho);
+
+     int n = 8;
+        for (int i = 0; i < cabeceraOriginal.alto; i += n) {
+            for (int j = 0; j < cabeceraOriginal.ancho; j += n) {
+                unsigned long sumaR = 0, sumaG = 0, sumaB = 0;
+                int acumuladorPixeles = 0;
+
+                for (int k = 0; k < n && (i + k) < cabeceraOriginal.alto; k++) {
+                    for (int l = 0; l < n && (j + l) < cabeceraOriginal.ancho; l++) {
+                        sumaR += matImagen[i + k][j + l].pixel[0];
+                        sumaG += matImagen[i + k][j + l].pixel[1];
+                        sumaB += matImagen[i + k][j + l].pixel[2];
+                        acumuladorPixeles++;
+                    }
+                }
+
+                unsigned char avgR = MIN(sumaR / acumuladorPixeles, 255);
+                unsigned char avgG = MIN(sumaG / acumuladorPixeles, 255);
+                unsigned char avgB = MIN(sumaB / acumuladorPixeles, 255);
+
+                for (int k = 0; k < n && (i + k) < cabeceraOriginal.alto; k++) {
+                    for (int l = 0; l < n && (j + l) < cabeceraOriginal.ancho; l++) {
+                        matNuevaImagen[i + k][j + l].pixel[0] = avgR;
+                        matNuevaImagen[i + k][j + l].pixel[1] = avgG;
+                        matNuevaImagen[i + k][j + l].pixel[2] = avgB;
+                    }
+                }
+            }
+        }
+
+    escribirArchivo(nuevaImagen, matNuevaImagen, cabeceraOriginal.alto, cabeceraOriginal.ancho);
 
     matrizDestruir((void**)matImagen, cabeceraOriginal.alto);
     matrizDestruir((void**)matNuevaImagen, cabeceraOriginal.alto);
