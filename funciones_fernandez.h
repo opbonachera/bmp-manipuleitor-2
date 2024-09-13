@@ -19,7 +19,7 @@ bool esNombreDeArchivo(char* parametro);
 bool esComando(char* parametro);
 bool comandoFueProcesado(char* parametro, char* comandosProcesados[]);
 int ejecutarComando(char* comando, char* nombresDeArchivos[]);
-char* generarNombreArchivo(char* comando, char* nombresDeArchivos[]);
+char* generarNombreArchivo(const char* comando, char* nombresDeArchivos[]);
 void** matrizCrear(size_t tamElem, size_t filas, size_t columnas);
 void matrizDestruir(void** mat, int filas);
 void cargarMatriz(FILE* archivo, t_pixel** mat, size_t filas, size_t columnas);

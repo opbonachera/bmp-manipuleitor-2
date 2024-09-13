@@ -224,17 +224,17 @@ int ejecutarComando(char* comando, char* nombresDeArchivos[])
         }
     }
 
-    int parametro = obtenerParametro(comando);
-
     char* nombreNuevoArchivo = generarNombreArchivo(comando, nombresDeArchivos);
+
+    int parametro = obtenerParametro(comando);
 
     int resultado = OK;
 
-    if(!strcmp(comando, "--tonalidad_roja"))
+    if(!strcmp(comando, "--tonalidad-roja") && parametro)
         resultado = cambiarTonalidad(img1, nombreNuevoArchivo, 2 , parametro);
-    else if(!strcmp(comando, "--tonalidad_azul"))
+    else if(!strcmp(comando, "--tonalidad-azul") && parametro)
         resultado = cambiarTonalidad(img1, nombreNuevoArchivo, 0 , parametro);
-    else if(!strcmp(comando, "--tonalidad_verde"))
+    else if(!strcmp(comando, "--tonalidad-verde") && parametro)
         resultado = cambiarTonalidad(img1, nombreNuevoArchivo, 1 , parametro);
     else if(!strcmp(comando, "--rotar-izquierda"))
         resultado = rotarImagenIzquierda(img1, nombreNuevoArchivo);
@@ -259,7 +259,7 @@ int ejecutarComando(char* comando, char* nombresDeArchivos[])
     return resultado;
 }
 
-char* generarNombreArchivo(char* comando, char* nombresDeArchivos[])
+char* generarNombreArchivo(const char* comando, char* nombresDeArchivos[])
 {
     char* nombreGrupo = "MEMORIA_";
     char* nombreNuevoArchivo = malloc(strlen(nombreGrupo) + strlen(comando+2) + strlen(nombresDeArchivos[0]));

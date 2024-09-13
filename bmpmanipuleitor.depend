@@ -183,3 +183,75 @@
 	<stdio.h>
 	"funciones_grupo.h"
 
+1726227613 source:c:\users\orneb\bmp-manipuleitor-2\funciones_fernandez.c
+	"funciones_fernandez.h"
+	"funciones_bonachera.h"
+
+1726227613 c:\users\orneb\bmp-manipuleitor-2\funciones_fernandez.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<stdbool.h>
+	"estructuras.h"
+
+1726227613 c:\users\orneb\bmp-manipuleitor-2\estructuras.h
+
+1726227613 c:\users\orneb\bmp-manipuleitor-2\funciones_bonachera.h
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<string.h>
+	"estructuras.h"
+
+1726227613 source:c:\users\orneb\bmp-manipuleitor-2\funciones_grupo.c
+	"funciones_grupo.h"
+
+1726227613 c:\users\orneb\bmp-manipuleitor-2\funciones_grupo.h
+	"funciones_machi.h"
+	"funciones_bonachera.h"
+	"funciones_fernandez.h"
+
+1726227613 source:c:\users\orneb\bmp-manipuleitor-2\main.c
+	<stdio.h>
+	"funciones_grupo.h"
+
+1726230218 source:c:\users\orneb\bmp-manipuleitor-2\funciones_bonachera.c
+	"funciones_bonachera.h"
+	"funciones_fernandez.h"
+
+1726256631 source:c:\users\orneb\onedrive\documentos\bmp-manipuleitor-2\funciones_bonachera.c
+	"funciones_bonachera.h"
+	"funciones_fernandez.h"
+
+1726256541 c:\users\orneb\onedrive\documentos\bmp-manipuleitor-2\funciones_bonachera.h
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<string.h>
+	"estructuras.h"
+
+1726227613 c:\users\orneb\onedrive\documentos\bmp-manipuleitor-2\estructuras.h
+
+1726252650 c:\users\orneb\onedrive\documentos\bmp-manipuleitor-2\funciones_fernandez.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<stdbool.h>
+	"estructuras.h"
+
+1726256598 source:c:\users\orneb\onedrive\documentos\bmp-manipuleitor-2\funciones_fernandez.c
+	"funciones_fernandez.h"
+	"funciones_bonachera.h"
+
+1726227613 source:c:\users\orneb\onedrive\documentos\bmp-manipuleitor-2\funciones_grupo.c
+	"funciones_grupo.h"
+
+1726227613 c:\users\orneb\onedrive\documentos\bmp-manipuleitor-2\funciones_grupo.h
+	"funciones_machi.h"
+	"funciones_bonachera.h"
+	"funciones_fernandez.h"
+
+1726227613 source:c:\users\orneb\onedrive\documentos\bmp-manipuleitor-2\main.c
+	<stdio.h>
+	"funciones_grupo.h"
+

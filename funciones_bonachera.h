@@ -11,7 +11,7 @@
 #define OK 0
 #define ERROR_APERTURA_ARCHIVO 1
 #define ERROR_CREACION_ARCHIVO 2
-#define FUERA_DE_RANGO 3
+#define FUERA_DE_RANGO -1
 #define SIN_PARAMETROS 4
 
 bool validarRango(int limiteInferior, int limiteSuperior, int valor);
