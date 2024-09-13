@@ -7,8 +7,6 @@ Aquí deben hacer los includes de sus archivos individuales, por ejemplo:
 #include "funciones_bonachera.h"
 #include "funciones_fernandez.h"
 
-#define ERR_CANT_ARG 1
-
 int solucion(int argc, char* argv[]);
 
 
