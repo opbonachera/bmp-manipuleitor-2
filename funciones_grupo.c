@@ -26,6 +26,8 @@
 
 #include "funciones_grupo.h"
 
+#define ERR_CANT_ARG 1
+
 int solucion(int argc, char* argv[])
 {
     if(argc==1)
@@ -40,7 +42,5 @@ int solucion(int argc, char* argv[])
         return ERR_CANT_ARG;
     }
 
-    procesarArgumentos(argc, argv);
-
-    return 0;
+    return procesarArgumentos(argc, argv);;
 }

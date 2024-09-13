@@ -1,52 +1,107 @@
 #include "funciones_fernandez.h"
 #include "funciones_bonachera.h"
 
-void cambiarTonalidad(FILE* img, char* nombreNuevoArchivo, unsigned char color, char* modificador)
+int cambiarTonalidad(FILE* img, char* nombreNuevoArchivo, unsigned char color, int parametro)
 {
-    float numModificador = (float)atoi(modificador);
-    float multiplicador = 1 + (numModificador / 100);
+    float multiplicador = 1 + ((float)parametro / 100);
 
     FILE* imgNueva = fopen(nombreNuevoArchivo, "wb");
+
+    if(!imgNueva)
+    {
+        printf("\nError al crear la nueva imagen.");
+        return ERROR_CREACION_ARCHIVO;
+    }
 
     t_metadata cabecera;
     leerCabecera(img,&cabecera);
 
-    escribirCabecera(img, imgNueva, cabecera);
+    escribirCabecera(img, imgNueva, &cabecera);
 
     int tamFila = (cabecera.ancho * cabecera.profundidad / 8 + 3) & ~3; //tamaño de fila con padding.
 
-    t_pixel imgOriginal[tamFila][cabecera.alto];
-    t_pixel nueva[tamFila][cabecera.alto];
+    t_pixel** matImgOriginal = (t_pixel**)matrizCrear(sizeof(t_pixel), cabecera.alto, tamFila);
+    t_pixel** matImgNueva = (t_pixel**)matrizCrear(sizeof(t_pixel), cabecera.alto, tamFila);
 
-    fread(imgOriginal, sizeof(imgOriginal), 1, img);
+    cargarMatriz(img, matImgOriginal, cabecera.alto, tamFila);
 
-    for(int i=0; i<tamFila; i++)
+    for(int i=0; i<cabecera.alto; i++)
     {
-        for(int j=0; j<cabecera.alto; j++)
+        for(int j=0; j<tamFila; j++)
         {
-            nueva[i][j].pixel[0] = imgOriginal[i][j].pixel[0];
-            nueva[i][j].pixel[1] = imgOriginal[i][j].pixel[1];
-            nueva[i][j].pixel[2] = imgOriginal[i][j].pixel[2];
-            nueva[i][j].pixel[color] = (imgOriginal[i][j].pixel[color] * multiplicador) > 255 ? 255 : (unsigned char)(imgOriginal[i][j].pixel[color] * multiplicador);
+            matImgNueva[i][j].pixel[0] = matImgOriginal[i][j].pixel[0];
+            matImgNueva[i][j].pixel[1] = matImgOriginal[i][j].pixel[1];
+            matImgNueva[i][j].pixel[2] = matImgOriginal[i][j].pixel[2];
+            matImgNueva[i][j].pixel[color] = (matImgOriginal[i][j].pixel[color] * multiplicador) > 255 ? 255 : (unsigned char)(matImgOriginal[i][j].pixel[color] * multiplicador);
         }
     }
 
-    fwrite(nueva, sizeof(nueva), 1, imgNueva);
+    escribirArchivo(imgNueva, matImgNueva, cabecera.alto, tamFila);
+
+    matrizDestruir((void**)matImgOriginal, cabecera.alto);
+    matrizDestruir((void**)matImgNueva, cabecera.alto);
     fclose(imgNueva);
+
+    return OK;
 }
 
 
-void escribirCabecera(FILE* img, FILE* nueva, t_metadata cabeceraOriginal)
+int escalaDeGrises(FILE* img, char* nombreNuevoArchivo)
 {
-    unsigned char byte[cabeceraOriginal.comienzoImagen];
+    FILE* imgNueva = fopen(nombreNuevoArchivo, "wb");
 
-    fread(&byte, sizeof(byte), 1, img);
-    fwrite(&byte, sizeof(byte), 1, nueva);
+    if(!imgNueva)
+    {
+        printf("\nError al crear la nueva imagen.");
+        return ERROR_CREACION_ARCHIVO;
+    }
+
+    t_metadata cabecera;
+    leerCabecera(img,&cabecera);
+
+    escribirCabecera(img, imgNueva, &cabecera);
+
+    int tamFila = (cabecera.ancho * cabecera.profundidad / 8 + 3) & ~3; //tamaño de fila con padding.
+
+    t_pixel** matImgOriginal = (t_pixel**)matrizCrear(sizeof(t_pixel), cabecera.alto, tamFila);
+    t_pixel** matImgNueva = (t_pixel**)matrizCrear(sizeof(t_pixel), cabecera.alto, tamFila);
+
+    cargarMatriz(img, matImgOriginal, cabecera.alto, tamFila);
+
+    unsigned char promedio = 0;
+
+    for(int i=0; i<cabecera.alto; i++)
+    {
+        for(int j=0; j<tamFila; j++)
+        {
+            promedio = (matImgOriginal[i][j].pixel[0] + matImgOriginal[i][j].pixel[1] + matImgOriginal[i][j].pixel[2]) / 3;
+            matImgNueva[i][j].pixel[0] = matImgNueva[i][j].pixel[1] = matImgNueva[i][j].pixel[2] = promedio;
+        }
+    }
+
+    escribirArchivo(imgNueva, matImgNueva, cabecera.alto, tamFila);
+
+    matrizDestruir((void**)matImgOriginal, cabecera.alto);
+    matrizDestruir((void**)matImgNueva, cabecera.alto);
+    fclose(imgNueva);
+
+    return OK;
 }
 
 
-void procesarArgumentos(int argc, char* argv[])
+void escribirCabecera(FILE* img, FILE* nueva, t_metadata* cabeceraOriginal)
 {
+    char bytes[cabeceraOriginal->comienzoImagen];
+
+    fread(&bytes, sizeof(bytes), 1, img);
+    fwrite(&bytes, sizeof(bytes), 1, nueva);
+}
+
+
+int procesarArgumentos(int argc, char* argv[])
+{
+    int resultado = OK;
+
     char* nombresDeArchivos[2] = {NULL, NULL};
     char* comandosProcesados[argc];
 
@@ -64,20 +119,32 @@ void procesarArgumentos(int argc, char* argv[])
         {
             comandosProcesados[cantidadComandos] = argv[i];
             cantidadComandos++;
-            printf("\nComando procesado: %s", argv[i]);
         }
-        else if(esNombreDeArchivo(argv[i]))
+        else if(esNombreDeArchivo(argv[i]) && cantidadArchivos <= 2)
         {
             nombresDeArchivos[cantidadArchivos] = argv[i];
             cantidadArchivos++;
-            printf("\nNombre de archivo encontrado: %s", argv[i]);
         }
     }
 
-    for(int i = 0; i < cantidadComandos; i++)
+    if(cantidadArchivos == 0)
     {
-        ejecutarComando(comandosProcesados[i], nombresDeArchivos);
+        printf("\nDebe informar el/los archivo/s a procesar.");
+        return ARCHIVO_NO_INFORMADO;
     }
+
+    if(cantidadArchivos > 2)
+    {
+        printf("\nSolo puede ingresar hasta 2 archivos a procesar.");
+        return EXCEDE_CANT_ARCHIVOS;
+    }
+
+    for(int i = 0; i < cantidadComandos && !resultado; i++)
+    {
+        resultado = ejecutarComando(comandosProcesados[i], nombresDeArchivos);
+    }
+
+    return resultado;
 }
 
 bool esNombreDeArchivo(char* parametro)
@@ -93,7 +160,7 @@ bool esNombreDeArchivo(char* parametro)
 
 bool esComando(char* parametro)
 {
-    char* cad = (char *)malloc(strlen(parametro) + 1);
+    char* cad = malloc(strlen(parametro) + 1);
 
     strcpy(cad, parametro);
 
@@ -107,7 +174,6 @@ bool esComando(char* parametro)
     if(!resultado)
     {
         free(cad);
-        printf("\nComando encontrado: %s", parametro);
         return true;
     }
 
@@ -123,50 +189,69 @@ bool comandoFueProcesado(char* parametro, char* comandosProcesados[])
     while(comandosProcesados[i] && strlen(comandosProcesados[i]) > 0)
     {
         resultado = strcmp(parametro, comandosProcesados[i]);
-        i++;
-    }
 
-    if(!resultado)
-    {
-        printf("\nComando duplicado: %s", comandosProcesados[i]);
-        return true;
+        if(!resultado)
+        {
+            printf("\nEl comando \"%s\" esta duplicado.", comandosProcesados[i]);
+            return true;
+        }
+
+        i++;
     }
 
     return false;
 }
 
-void ejecutarComando(char* comando, char* nombresDeArchivos[])
+int ejecutarComando(char* comando, char* nombresDeArchivos[])
 {
-    FILE* img;
-    img = fopen(nombresDeArchivos[0],"rb");
+    FILE* img1;
+    img1 = fopen(nombresDeArchivos[0],"rb");
 
-    char* modificador = strrchr(comando, '=');
-    if(modificador)
+    if(!img1)
     {
-        *modificador = '\0';
-        modificador++;
+        printf("\nNo se encontro el archivo 1.");
+        return ERROR_APERTURA_ARCHIVO;
     }
 
+    if(nombresDeArchivos[1])
+    {
+        FILE* img2;
+        img2 = fopen(nombresDeArchivos[1],"rb");
+        if(!img2)
+        {
+            printf("\nNo se encontro el archivo 2.");
+            return ERROR_APERTURA_ARCHIVO;
+        }
+    }
+
+    int parametro = obtenerParametro(comando);
+
     char* nombreNuevoArchivo = generarNombreArchivo(comando, nombresDeArchivos);
-    printf("\nNombreNuevoArchivo: %s", nombreNuevoArchivo);
+
+    int resultado = OK;
 
     if(!strcmp(comando, "--tonalidad_roja"))
-        cambiarTonalidad(img, nombreNuevoArchivo, 2 , modificador);
+        resultado = cambiarTonalidad(img1, nombreNuevoArchivo, 2 , parametro);
     if(!strcmp(comando, "--tonalidad_azul"))
-        cambiarTonalidad(img, nombreNuevoArchivo, 0 , modificador);
+        resultado = cambiarTonalidad(img1, nombreNuevoArchivo, 0 , parametro);
     if(!strcmp(comando, "--tonalidad_verde"))
-        cambiarTonalidad(img, nombreNuevoArchivo, 1 , modificador);
+        resultado = cambiarTonalidad(img1, nombreNuevoArchivo, 1 , parametro);
     if(!strcmp(comando, "--rotar-izquierda"))
-        rotarImagenIzquierda(img, nombreNuevoArchivo);
+        resultado = rotarImagenIzquierda(img1, nombreNuevoArchivo);
     if(!strcmp(comando, "--rotar-derecha"))
-        rotarImagenDerecha(img, nombreNuevoArchivo);
+        resultado = rotarImagenDerecha(img1, nombreNuevoArchivo);
     if(!strcmp(comando, "--espejar-vertical"))
-        espejarImagenVertical(img, nombreNuevoArchivo);
+        resultado = espejarImagenVertical(img1, nombreNuevoArchivo);
     if(!strcmp(comando, "--espejar-horizontal"))
-        espejarImagenHorizontal(img, nombreNuevoArchivo);
+        resultado = espejarImagenHorizontal(img1, nombreNuevoArchivo);
+    if(!strcmp(comando, "--escala-de-grises"))
+        resultado = escalaDeGrises(img1, nombreNuevoArchivo);
+
 
     free(nombreNuevoArchivo);
-    fclose(img);
+    fclose(img1);
+
+    return resultado;
 }
 
 char* generarNombreArchivo(char* comando, char* nombresDeArchivos[])
@@ -180,4 +265,67 @@ char* generarNombreArchivo(char* comando, char* nombresDeArchivos[])
     strcat(nombreNuevoArchivo, nombresDeArchivos[0]);
 
     return nombreNuevoArchivo;
+}
+
+
+void** matrizCrear(size_t tamElem, size_t filas, size_t columnas)
+{
+    void** mat = malloc(sizeof(void*) * filas);
+
+    if(!mat)
+    {
+        printf("\nError al crear la matriz.");
+        return NULL;
+    }
+
+    void** ult = mat + filas - 1;
+
+    for(void** i = mat; i <= ult; i++)
+    {
+        *i = malloc(tamElem * columnas);
+
+        if(!*i)
+        {
+            matrizDestruir(mat, i - mat);
+            printf("\nError al crear la matriz.");
+            return NULL;
+        }
+    }
+
+    return mat;
+}
+
+void matrizDestruir(void** mat, int filas)
+{
+    void** ult = mat + filas - 1;
+
+    for(void** i = mat; i <= ult; i++)
+    {
+        free(*i);
+    }
+
+    free(mat);
+}
+
+
+void cargarMatriz(FILE* archivo, t_pixel** mat, size_t filas, size_t columnas)
+{
+    for(int i=0; i<filas; i++)
+    {
+        for(int j=0; j<columnas; j++)
+        {
+            fread(mat[i][j].pixel, sizeof(t_pixel), 1, archivo);
+        }
+    }
+}
+
+void escribirArchivo(FILE* archivo, t_pixel** mat, size_t filas, size_t columnas)
+{
+    for(int i=0; i<filas; i++)
+    {
+        for(int j=0; j<columnas; j++)
+        {
+            fwrite(mat[i][j].pixel, sizeof(t_pixel), 1, archivo);
+        }
+    }
 }

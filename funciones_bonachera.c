@@ -1,12 +1,6 @@
 #include "funciones_bonachera.h"
 #include "funciones_fernandez.h"
 
-#define OK 0
-#define ERROR_APERTURA_ARCHIVO 1
-#define ERROR_CREACION_ARCHIVO 2
-#define FUERA_DE_RANGO 3
-#define SIN_PARAMETROS 4
-
 // Helpers
 bool validarRango(int limiteInferior, int limiteSuperior, int valor)
 {
@@ -22,11 +16,14 @@ void modificarDimensiones(FILE* img, int nuevoX, int nuevoY)
 
 int obtenerParametro(char* argumento)
 {
-    char* pos = strrchr(argumento, '=') + 1;
+    char* pos = strrchr(argumento, '=');
     int num;
 
     if(pos)
     {
+        *pos = '\0';
+        pos++;
+
         sscanf(pos, "%d", &num);
 
         if(!validarRango(0,101,num))
@@ -89,7 +86,7 @@ int rotarImagenIzquierda(FILE* imagenOriginal, char* nombreNuevoArchivo)
 
     leerCabecera(imagenOriginal, &cabeceraOriginal);
 
-    escribirCabecera(imagenOriginal, nuevaImagen, cabeceraOriginal);
+    escribirCabecera(imagenOriginal, nuevaImagen, &cabeceraOriginal);
 
     int anchoOriginal = cabeceraOriginal.ancho;
     int altoOriginal = cabeceraOriginal.alto;
@@ -125,7 +122,7 @@ int rotarImagenDerecha(FILE* imagenOriginal, char* nombreNuevoArchivo)
 
     leerCabecera(imagenOriginal, &cabeceraOriginal);
 
-    escribirCabecera(imagenOriginal, nuevaImagen, cabeceraOriginal);
+    escribirCabecera(imagenOriginal, nuevaImagen, &cabeceraOriginal);
 
     int anchoOriginal = cabeceraOriginal.ancho;
     int altoOriginal = cabeceraOriginal.alto;
@@ -160,7 +157,7 @@ int espejarImagenHorizontal(FILE* imagenOriginal, char* nombreNuevoArchivo)
 
     leerCabecera(imagenOriginal, &cabeceraOriginal);
 
-    escribirCabecera(imagenOriginal, nuevaImagen, cabeceraOriginal);
+    escribirCabecera(imagenOriginal, nuevaImagen, &cabeceraOriginal);
 
     int anchoOriginal = cabeceraOriginal.ancho;
     int altoOriginal = cabeceraOriginal.alto;
@@ -202,7 +199,7 @@ int espejarImagenVertical(FILE* imagenOriginal, char* nombreNuevoArchivo)
 
     leerCabecera(imagenOriginal, &cabeceraOriginal);
 
-    escribirCabecera(imagenOriginal, nuevaImagen, cabeceraOriginal);
+    escribirCabecera(imagenOriginal, nuevaImagen, &cabeceraOriginal);
 
     int anchoOriginal = cabeceraOriginal.ancho;
     int altoOriginal = cabeceraOriginal.alto;
@@ -231,7 +228,6 @@ int espejarImagenVertical(FILE* imagenOriginal, char* nombreNuevoArchivo)
 
     fclose(nuevaImagen);
     leerCabecera(nuevaImagen, &cabeceraNueva);
-
     return OK;
 }
 
