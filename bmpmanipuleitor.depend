@@ -160,14 +160,14 @@
 
 1726178187 d:\unlam\topicosdeprogramacion\tp\bmp-manipuleitor-2\estructuras.h
 
-1726187442 d:\unlam\topicosdeprogramacion\tp\bmp-manipuleitor-2\funciones_fernandez.h
+1726188988 d:\unlam\topicosdeprogramacion\tp\bmp-manipuleitor-2\funciones_fernandez.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<stdbool.h>
 	"estructuras.h"
 
-1726188355 source:d:\unlam\topicosdeprogramacion\tp\bmp-manipuleitor-2\funciones_fernandez.c
+1726189282 source:d:\unlam\topicosdeprogramacion\tp\bmp-manipuleitor-2\funciones_fernandez.c
 	"funciones_fernandez.h"
 	"funciones_bonachera.h"
 

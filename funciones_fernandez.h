@@ -10,6 +10,7 @@
 
 #define ARCHIVO_NO_INFORMADO 5
 #define EXCEDE_CANT_ARCHIVOS 6
+#define COMANDO_INCORRECTO 7
 
 int cambiarTonalidad(FILE* img, char* imgNueva, unsigned char color,  int parametro);
 void escribirCabecera(FILE* img, FILE* nueva, t_metadata* cabeceraOriginal);

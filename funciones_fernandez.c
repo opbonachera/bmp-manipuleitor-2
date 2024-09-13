@@ -232,20 +232,25 @@ int ejecutarComando(char* comando, char* nombresDeArchivos[])
 
     if(!strcmp(comando, "--tonalidad_roja"))
         resultado = cambiarTonalidad(img1, nombreNuevoArchivo, 2 , parametro);
-    if(!strcmp(comando, "--tonalidad_azul"))
+    else if(!strcmp(comando, "--tonalidad_azul"))
         resultado = cambiarTonalidad(img1, nombreNuevoArchivo, 0 , parametro);
-    if(!strcmp(comando, "--tonalidad_verde"))
+    else if(!strcmp(comando, "--tonalidad_verde"))
         resultado = cambiarTonalidad(img1, nombreNuevoArchivo, 1 , parametro);
-    if(!strcmp(comando, "--rotar-izquierda"))
+    else if(!strcmp(comando, "--rotar-izquierda"))
         resultado = rotarImagenIzquierda(img1, nombreNuevoArchivo);
-    if(!strcmp(comando, "--rotar-derecha"))
+    else if(!strcmp(comando, "--rotar-derecha"))
         resultado = rotarImagenDerecha(img1, nombreNuevoArchivo);
-    if(!strcmp(comando, "--espejar-vertical"))
+    else if(!strcmp(comando, "--espejar-vertical"))
         resultado = espejarImagenVertical(img1, nombreNuevoArchivo);
-    if(!strcmp(comando, "--espejar-horizontal"))
+    else if(!strcmp(comando, "--espejar-horizontal"))
         resultado = espejarImagenHorizontal(img1, nombreNuevoArchivo);
-    if(!strcmp(comando, "--escala-de-grises"))
+    else if(!strcmp(comando, "--escala-de-grises"))
         resultado = escalaDeGrises(img1, nombreNuevoArchivo);
+    else
+    {
+        printf("\nEl comando \"%s\" no existe o es incorrecto.", comando);
+        resultado = COMANDO_INCORRECTO;
+    }
 
 
     free(nombreNuevoArchivo);
