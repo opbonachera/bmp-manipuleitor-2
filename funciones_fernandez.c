@@ -256,10 +256,9 @@ int ejecutarComando(char* comando, char* nombresDeArchivos[])
         recortarImagen(img1,nombreNuevoArchivo,parametro);
     else if(!strcmp(comando, "--negativo"))
         invertirImagen(img1,nombreNuevoArchivo);
-
     else
     {
-        printf("\nError: El comando \"%s\" no existe o es incorrecto.\n", comando);
+        printf("\nError: El comando \"%s\" no existe o se informo un parametro fuera de rango.\n", comando);
     }
 
     free(nombreNuevoArchivo);
