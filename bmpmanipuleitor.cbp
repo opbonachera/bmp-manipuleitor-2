@@ -11,7 +11,7 @@
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option parameters="--espejar-horizontal --tonalidad-roja=30 --espejar-vertical unlam.bmp " />
+				<Option parameters="--espejar-horizontal --tonalidad-roja=130 --espejar-vertical unlam.bmp " />
 				<Compiler>
 					<Add option="-g" />
 				</Compiler>
@@ -45,6 +45,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="funciones_grupo.h" />
+		<Unit filename="funciones_risso.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="funciones_risso.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>

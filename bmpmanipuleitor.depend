@@ -268,3 +268,50 @@
 	"funciones_bonachera.h"
 	"funciones_fernandez.h"
 
+1726439121 source:d:\unlam\topicosdeprogramacion\tp\bmpmanipulator\bmp-manipuleitor-2\funciones_bonachera.c
+	"funciones_bonachera.h"
+	"funciones_fernandez.h"
+
+1726439121 d:\unlam\topicosdeprogramacion\tp\bmpmanipulator\bmp-manipuleitor-2\funciones_bonachera.h
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<string.h>
+
+1726439121 d:\unlam\topicosdeprogramacion\tp\bmpmanipulator\bmp-manipuleitor-2\funciones_fernandez.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<stdbool.h>
+	"funciones_bonachera.h"
+
+1726439121 source:d:\unlam\topicosdeprogramacion\tp\bmpmanipulator\bmp-manipuleitor-2\funciones_fernandez.c
+	"funciones_fernandez.h"
+	"funciones_bonachera.h"
+	"funciones_risso.h"
+
+1726439121 d:\unlam\topicosdeprogramacion\tp\bmpmanipulator\bmp-manipuleitor-2\funciones_risso.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<stdbool.h>
+	"funciones_bonachera.h"
+
+1726439121 source:d:\unlam\topicosdeprogramacion\tp\bmpmanipulator\bmp-manipuleitor-2\funciones_grupo.c
+	"funciones_grupo.h"
+
+1726439121 d:\unlam\topicosdeprogramacion\tp\bmpmanipulator\bmp-manipuleitor-2\funciones_grupo.h
+	"funciones_machi.h"
+	"funciones_bonachera.h"
+	"funciones_fernandez.h"
+	"funciones_risso.h"
+
+1726439481 source:d:\unlam\topicosdeprogramacion\tp\bmpmanipulator\bmp-manipuleitor-2\funciones_risso.c
+	"funciones_risso.h"
+	"funciones_bonachera.h"
+	"funciones_fernandez.h"
+
+1726439121 source:d:\unlam\topicosdeprogramacion\tp\bmpmanipulator\bmp-manipuleitor-2\main.c
+	<stdio.h>
+	"funciones_grupo.h"
+
