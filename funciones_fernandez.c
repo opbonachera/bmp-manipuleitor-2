@@ -228,8 +228,6 @@ int ejecutarComando(char* comando, char* nombresDeArchivos[])
     int parametro = obtenerParametro(comando);
     char* nombreNuevoArchivo = generarNombreArchivo(comando, nombresDeArchivos);
 
-
-
     if(!strcmp(comando, "--tonalidad-roja") && parametro)
         cambiarTonalidad(img1, nombreNuevoArchivo, 2 , parametro);
     else if(!strcmp(comando, "--tonalidad-azul") && parametro)
@@ -261,10 +259,8 @@ int ejecutarComando(char* comando, char* nombresDeArchivos[])
 
     else
     {
-        printf("\nEl comando \"%s\" no existe o es incorrecto.", comando);
-
+        printf("\nError: El comando \"%s\" no existe o es incorrecto.\n", comando);
     }
-
 
     free(nombreNuevoArchivo);
     fclose(img1);

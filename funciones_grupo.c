@@ -2,25 +2,25 @@
     Integrantes del grupo. En caso de ser un grupo de dos integrantes, no completar el último campo.
     Si alguno de los integrantes del grupo dejara la materia, completar de todos modos sus datos, aclarando que no entrega.
     -----------------
-    Apellido:
-    Nombre:
-    DNI:
+    Apellido: Bonachera
+    Nombre: Ornella
+    DNI: 46119546
+    Entrega: Sí
+    -----------------
+    Apellido: Risso
+    Nombre: Santiago
+    DNI: 44552484
     Entrega:
     -----------------
-    Apellido:
-    Nombre:
-    DNI:
-    Entrega:
+    Apellido: Fernández
+    Nombre: Jeremías
+    DNI: 38609283
+    Entrega: Sí
     -----------------
-    Apellido:
-    Nombre:
+    Apellido: Palese
+    Nombre: Juan Ignacio
     DNI:
-    Entrega:
-    -----------------
-    Apellido:
-    Nombre:
-    DNI:
-    Entrega:
+    Entrega: No
     -----------------
 */
 

@@ -11,6 +11,7 @@
 #define ERROR_CREACION_ARCHIVO 2
 #define FUERA_DE_RANGO -1
 #define SIN_PARAMETROS 4
+#define FALTA_IMAGEN 5
 
 #define MIN(x, y) (((x) < (y)) ? (x) : (y))
 

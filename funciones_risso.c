@@ -150,10 +150,16 @@ int reducirContraste(FILE* img, char* nombreNuevoArchivo, int parametro){
 }
 
 int concatenarImagenesVertioHori(FILE* img1, FILE* img2, char* nombreNuevoArchivo, char concatenar){
+
+    if(!img1 || img2)
+        printf("Error: para concatenar imagenes deben enviarse dos archivos .bmp \n");
+        return FALTA_IMAGEN;
+
     FILE* imagenNueva = fopen(nombreNuevoArchivo, "wb");
 
     if (!imagenNueva)
         return ERROR_CREACION_ARCHIVO;
+
 
     t_metadata cabecera1;
     t_metadata cabecera2;

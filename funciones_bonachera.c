@@ -1,7 +1,6 @@
 #include "funciones_bonachera.h"
 #include "funciones_fernandez.h"
 
-// Helpers
 bool validarRango(int limiteInferior, int limiteSuperior, int valor)
 {
     return (valor>limiteInferior && valor<limiteSuperior);
@@ -30,8 +29,7 @@ int obtenerParametro(char* argumento)
 
         if(!validarRango(0,101,num))
         {
-            printf("El parametro no esta dentro del rango aceptado.\n");
-            return 0;
+            return 0; // Parametro invalido
         }
 
         return num;
@@ -45,8 +43,6 @@ int obtenerParametro(char* argumento)
 
 int leerCabecera(FILE* img, t_metadata *cabecera)
 {
-    printf("\n\n--------");
-
     fseek(img, 2, SEEK_SET);
     fread(&cabecera->tamArchivo, sizeof(unsigned int), 1, img);
 
@@ -64,13 +60,6 @@ int leerCabecera(FILE* img, t_metadata *cabecera)
 
     fseek(img, 28, SEEK_SET);
     fread(&cabecera->profundidad, sizeof(unsigned short), 1, img);
-
-    printf("Tamaño de archivo: %u bytes\n",  cabecera->tamArchivo);
-    printf("Tamaño de cabecera: %u bytes\n", cabecera->tamEncabezado);
-    printf("Alto: %u bytes\n",               cabecera->alto);
-    printf("Ancho: %u bytes\n",              cabecera->ancho);
-    printf("Comienzo de imagen: byte %u\n",  cabecera->comienzoImagen);
-    printf("Profundidad: %u bits\n",         cabecera->profundidad);
 
     fseek(img, 0, SEEK_SET);
     return 0;
@@ -239,7 +228,6 @@ int espejarImagenVertical(FILE* imagenOriginal, char* nombreNuevoArchivo)
 int pixelearImagen(FILE* imagenOriginal, char* nombreNuevoArchivo)
 {
     FILE* nuevaImagen = fopen(nombreNuevoArchivo, "wb");
-    printf("el nombre es (%s)", nombreNuevoArchivo);
 
     if (!nuevaImagen)
         return ERROR_CREACION_ARCHIVO;
