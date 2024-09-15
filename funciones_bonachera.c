@@ -95,7 +95,6 @@ int rotarImagenDerecha(FILE* imagenOriginal, char* nombreNuevoArchivo)
     escribirCabecera(imagenOriginal, nuevaImagen, &cabeceraOriginal);
 
     t_pixel** matImagen = (t_pixel**)matrizCrear(sizeof(t_pixel), cabeceraOriginal.alto, cabeceraOriginal.ancho);
-    t_pixel** matNuevaImagen = (t_pixel**)matrizCrear(sizeof(t_pixel), cabeceraOriginal.ancho, cabeceraOriginal.alto);
 
     cargarMatriz(imagenOriginal, matImagen, cabeceraOriginal.alto, cabeceraOriginal.ancho);
 
@@ -290,6 +289,87 @@ int pixelearImagen(FILE* imagenOriginal, char* nombreNuevoArchivo)
 
     matrizDestruir((void**)matImagen, cabeceraOriginal.alto);
     matrizDestruir((void**)matNuevaImagen, cabeceraOriginal.alto);
+
+    fclose(nuevaImagen);
+
+    return OK;
+}
+
+int invertirImagen(FILE* imagenOriginal, char* nombreNuevoArchivo)
+{
+    FILE* nuevaImagen = fopen(nombreNuevoArchivo, "wb");
+
+    if(!nuevaImagen)
+        return ERROR_CREACION_ARCHIVO;
+
+    t_metadata cabeceraOriginal;
+
+    leerCabecera(imagenOriginal, &cabeceraOriginal);
+    escribirCabecera(imagenOriginal, nuevaImagen, &cabeceraOriginal);
+
+
+    t_pixel** matImagen = (t_pixel**)matrizCrear(sizeof(t_pixel), cabeceraOriginal.alto, cabeceraOriginal.ancho);
+
+    cargarMatriz(imagenOriginal, matImagen, cabeceraOriginal.alto, cabeceraOriginal.ancho);
+
+    for(int i=0; i<cabeceraOriginal.alto; i++)
+    {
+        for(int j=0; j<cabeceraOriginal.ancho; j++)
+        {
+            matImagen[i][j].pixel[0] = ~matImagen[i][j].pixel[0];
+            matImagen[i][j].pixel[1] = ~matImagen[i][j].pixel[1];
+            matImagen[i][j].pixel[2] = ~matImagen[i][j].pixel[2];
+        }
+    }
+
+    escribirArchivo(nuevaImagen, matImagen, cabeceraOriginal.alto, cabeceraOriginal.ancho);
+
+    matrizDestruir((void**)matImagen, cabeceraOriginal.alto);
+    return OK;
+}
+
+int recortarImagen(FILE* imagenOriginal, char* nombreNuevoArchivo, int parametro)
+{
+    FILE* nuevaImagen;
+    int nuevoX, nuevoY;
+    t_metadata cabeceraOriginal;
+
+    nuevaImagen = fopen(nombreNuevoArchivo, "wb");
+    if (!nuevaImagen)
+        return ERROR_CREACION_ARCHIVO;
+
+    leerCabecera(imagenOriginal, &cabeceraOriginal);
+
+    nuevoX = cabeceraOriginal.ancho * parametro / 100;
+    nuevoY = cabeceraOriginal.alto * parametro / 100;
+
+    cabeceraOriginal.ancho = nuevoX;
+    cabeceraOriginal.alto = nuevoY;
+
+    escribirCabecera(imagenOriginal, nuevaImagen, &cabeceraOriginal);
+
+
+    t_pixel** matImagen = (t_pixel**)matrizCrear(sizeof(t_pixel), cabeceraOriginal.alto * 100 / parametro, cabeceraOriginal.ancho * 100 / parametro);
+    t_pixel** matNuevaImagen = (t_pixel**)matrizCrear(sizeof(t_pixel), nuevoY, nuevoX);
+
+
+    cargarMatriz(imagenOriginal, matImagen, cabeceraOriginal.alto * 100 / parametro, cabeceraOriginal.ancho * 100 / parametro);
+
+
+    for (int y = 0; y < nuevoY; y++)
+    {
+        for (int x = 0; x < nuevoX; x++)
+        {
+            matNuevaImagen[y][x] = matImagen[y][x];
+        }
+    }
+
+    escribirArchivo(nuevaImagen, matNuevaImagen, nuevoY, nuevoX);
+
+    matrizDestruir((void**)matImagen, cabeceraOriginal.alto * 100 / parametro);
+    matrizDestruir((void**)matNuevaImagen, nuevoY);
+
+    modificarDimensiones(nuevaImagen, nuevoX, nuevoY);
 
     fclose(nuevaImagen);
 

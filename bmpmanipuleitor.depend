@@ -219,39 +219,52 @@
 	"funciones_bonachera.h"
 	"funciones_fernandez.h"
 
-1726258050 source:c:\users\orneb\onedrive\documentos\bmp-manipuleitor-2\funciones_bonachera.c
+1726434143 source:c:\users\orneb\onedrive\documentos\bmp-manipuleitor-2\funciones_bonachera.c
 	"funciones_bonachera.h"
 	"funciones_fernandez.h"
 
-1726257675 c:\users\orneb\onedrive\documentos\bmp-manipuleitor-2\funciones_bonachera.h
+1726432288 c:\users\orneb\onedrive\documentos\bmp-manipuleitor-2\funciones_bonachera.h
 	<stdio.h>
 	<stdlib.h>
 	<stdbool.h>
 	<string.h>
-	"estructuras.h"
 
-1726227613 c:\users\orneb\onedrive\documentos\bmp-manipuleitor-2\estructuras.h
+1726431314 c:\users\orneb\onedrive\documentos\bmp-manipuleitor-2\estructuras.h
 
-1726252650 c:\users\orneb\onedrive\documentos\bmp-manipuleitor-2\funciones_fernandez.h
+1726431692 c:\users\orneb\onedrive\documentos\bmp-manipuleitor-2\funciones_fernandez.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<stdbool.h>
-	"estructuras.h"
+	"funciones_bonachera.h"
 
-1726258339 source:c:\users\orneb\onedrive\documentos\bmp-manipuleitor-2\funciones_fernandez.c
+1726433357 source:c:\users\orneb\onedrive\documentos\bmp-manipuleitor-2\funciones_fernandez.c
 	"funciones_fernandez.h"
 	"funciones_bonachera.h"
+	"funciones_risso.h"
 
 1726227613 source:c:\users\orneb\onedrive\documentos\bmp-manipuleitor-2\funciones_grupo.c
 	"funciones_grupo.h"
 
-1726227613 c:\users\orneb\onedrive\documentos\bmp-manipuleitor-2\funciones_grupo.h
+1726431337 c:\users\orneb\onedrive\documentos\bmp-manipuleitor-2\funciones_grupo.h
 	"funciones_machi.h"
 	"funciones_bonachera.h"
 	"funciones_fernandez.h"
+	"funciones_risso.h"
 
 1726227613 source:c:\users\orneb\onedrive\documentos\bmp-manipuleitor-2\main.c
 	<stdio.h>
 	"funciones_grupo.h"
+
+1726432403 c:\users\orneb\onedrive\documentos\bmp-manipuleitor-2\funciones_risso.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<stdbool.h>
+	"funciones_bonachera.h"
+
+1726431439 source:c:\users\orneb\onedrive\documentos\bmp-manipuleitor-2\funciones_risso.c
+	"funciones_risso.h"
+	"funciones_bonachera.h"
+	"funciones_fernandez.h"
 

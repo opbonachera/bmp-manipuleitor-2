@@ -1,5 +1,6 @@
 #include "funciones_fernandez.h"
 #include "funciones_bonachera.h"
+#include "funciones_risso.h"
 
 int cambiarTonalidad(FILE* img, char* nombreNuevoArchivo, unsigned char color, int parametro)
 {
@@ -205,6 +206,7 @@ bool comandoFueProcesado(char* parametro, char* comandosProcesados[])
 int ejecutarComando(char* comando, char* nombresDeArchivos[])
 {
     FILE* img1;
+    FILE* img2;
     img1 = fopen(nombresDeArchivos[0],"rb");
 
     if(!img1)
@@ -215,7 +217,6 @@ int ejecutarComando(char* comando, char* nombresDeArchivos[])
 
     if(nombresDeArchivos[1])
     {
-        FILE* img2;
         img2 = fopen(nombresDeArchivos[1],"rb");
         if(!img2)
         {
@@ -227,35 +228,48 @@ int ejecutarComando(char* comando, char* nombresDeArchivos[])
     int parametro = obtenerParametro(comando);
     char* nombreNuevoArchivo = generarNombreArchivo(comando, nombresDeArchivos);
 
-    int resultado = OK;
-    printf("nombre nuevo: (%s)", nombreNuevoArchivo);
+
+
     if(!strcmp(comando, "--tonalidad-roja") && parametro)
-        resultado = cambiarTonalidad(img1, nombreNuevoArchivo, 2 , parametro);
+        cambiarTonalidad(img1, nombreNuevoArchivo, 2 , parametro);
     else if(!strcmp(comando, "--tonalidad-azul") && parametro)
-        resultado = cambiarTonalidad(img1, nombreNuevoArchivo, 0 , parametro);
+        cambiarTonalidad(img1, nombreNuevoArchivo, 0 , parametro);
     else if(!strcmp(comando, "--tonalidad-verde") && parametro)
-        resultado = cambiarTonalidad(img1, nombreNuevoArchivo, 1 , parametro);
+        cambiarTonalidad(img1, nombreNuevoArchivo, 1 , parametro);
+    else if(!strcmp(comando, "--reducir-contraste") && parametro)
+        reducirContraste(img1, nombreNuevoArchivo,parametro);
+    else if(!strcmp(comando, "--aumentar-contraste") && parametro)
+        aumentarContraste(img1, nombreNuevoArchivo,parametro);
     else if(!strcmp(comando, "--rotar-izquierda"))
-        resultado = rotarImagenIzquierda(img1, nombreNuevoArchivo);
+        rotarImagenIzquierda(img1, nombreNuevoArchivo);
     else if(!strcmp(comando, "--rotar-derecha"))
-        resultado = rotarImagenDerecha(img1, nombreNuevoArchivo);
+        rotarImagenDerecha(img1, nombreNuevoArchivo);
     else if(!strcmp(comando, "--espejar-vertical"))
-        resultado = espejarImagenVertical(img1, nombreNuevoArchivo);
+        espejarImagenVertical(img1, nombreNuevoArchivo);
     else if(!strcmp(comando, "--espejar-horizontal"))
-        resultado = espejarImagenHorizontal(img1, nombreNuevoArchivo);
+        espejarImagenHorizontal(img1, nombreNuevoArchivo);
     else if(!strcmp(comando, "--escala-de-grises"))
-        resultado = escalaDeGrises(img1, nombreNuevoArchivo);
-    else if(!strcmp(comando, "--comodin"))
-        resultado = pixelearImagen(img1, nombreNuevoArchivo);
+        escalaDeGrises(img1, nombreNuevoArchivo);
+    else if(!strcmp(comando, "--concatenar-horizontal"))
+        concatenarImagenesVertioHori(img1, img2, nombreNuevoArchivo,HORIZONTAL);
+    else if(!strcmp(comando, "--concatenar-vertical"))
+        concatenarImagenesVertioHori(img1, img2, nombreNuevoArchivo,VERTICAL);
+    else if(!strcmp(comando, "--recortar") && parametro)
+        recortarImagen(img1,nombreNuevoArchivo,parametro);
+    else if(!strcmp(comando, "--negativo"))
+        invertirImagen(img1,nombreNuevoArchivo);
+
     else
     {
         printf("\nEl comando \"%s\" no existe o es incorrecto.", comando);
-        resultado = COMANDO_INCORRECTO;
+
     }
 
 
     free(nombreNuevoArchivo);
     fclose(img1);
+
+    return OK;
 }
 
 char* generarNombreArchivo(const char* comando, char* nombresDeArchivos[])

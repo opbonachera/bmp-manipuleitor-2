@@ -6,7 +6,7 @@
 #include <string.h>
 #include <stdbool.h>
 
-#include "estructuras.h"
+#include "funciones_bonachera.h"
 
 #define ARCHIVO_NO_INFORMADO 5
 #define EXCEDE_CANT_ARCHIVOS 6
