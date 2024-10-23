@@ -38,7 +38,10 @@ int  rotarImagenDerecha(FILE* img, char* nombreNuevoArchivo);
 int  espejarImagenHorizontal(FILE* imagenOriginal, char* nombreNuevoArchivo);
 int  espejarImagenVertical(FILE* imagenOriginal, char* nombreNuevoArchivo);
 int  invertirImagen(FILE* imagenOriginal, char* nombreNuevoArchivo);
-int recortarImagen(FILE* imagenOriginal, char* nombreNuevoArchivo, int parametro);
+int  recortarImagen(FILE* imagenOriginal, char* nombreNuevoArchivo, int parametro);
+int  achicarImagen(FILE* imagenOriginal, char* nombreNuevoArchivo, int parametro);
+int  pixelearImagen(FILE* imagenOriginal, char* nombreNuevoArchivo);
+
 void modificarDimensiones(FILE* img, int nuevoX, int nuevoY);
 
 #endif // FUNCIONES_BONACHERA_H_INCLUDED

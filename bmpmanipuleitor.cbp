@@ -11,7 +11,7 @@
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option parameters="--espejar-horizontal --tonalidad-roja=130 --espejar-vertical unlam.bmp " />
+				<Option parameters="--rotar-derecha --achicar=50 --comodin unlam.bmp " />
 				<Compiler>
 					<Add option="-g" />
 				</Compiler>

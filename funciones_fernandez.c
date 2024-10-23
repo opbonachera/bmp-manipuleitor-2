@@ -254,10 +254,13 @@ int ejecutarComando(char* comando, char* nombresDeArchivos[])
         concatenarImagenesVertioHori(img1, img2, nombreNuevoArchivo,VERTICAL);
     else if(!strcmp(comando, "--recortar") && parametro)
         recortarImagen(img1,nombreNuevoArchivo,parametro);
+    else if(!strcmp(comando, "--achicar") && parametro)
+        achicarImagen(img1,nombreNuevoArchivo, parametro);
     else if(!strcmp(comando, "--negativo"))
         invertirImagen(img1,nombreNuevoArchivo);
     else if(!strcmp(comando, "--comodin"))
         pixelearImagen(img1,nombreNuevoArchivo);
+
     else
     {
         printf("\nError: El comando \"%s\" no existe o se informo un parametro fuera de rango.\n", comando);
