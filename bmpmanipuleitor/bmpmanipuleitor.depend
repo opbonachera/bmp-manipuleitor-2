@@ -1,0 +1,48 @@
+# depslib dependency file v1.0
+1729970762 source:c:\users\orneb\onedrive\documentos\universidad\materias\topicos de programacion\topicos-programacion\temas\bmp-manipuleitor-2\bmpmanipuleitor\funciones_fernandez.c
+	"funciones_fernandez.h"
+	"funciones_bonachera.h"
+	"funciones_risso.h"
+
+1729970762 c:\users\orneb\onedrive\documentos\universidad\materias\topicos de programacion\topicos-programacion\temas\bmp-manipuleitor-2\bmpmanipuleitor\funciones_fernandez.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<stdbool.h>
+	"funciones_bonachera.h"
+
+1729971077 c:\users\orneb\onedrive\documentos\universidad\materias\topicos de programacion\topicos-programacion\temas\bmp-manipuleitor-2\bmpmanipuleitor\funciones_bonachera.h
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<string.h>
+
+1729970762 c:\users\orneb\onedrive\documentos\universidad\materias\topicos de programacion\topicos-programacion\temas\bmp-manipuleitor-2\bmpmanipuleitor\funciones_risso.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<stdbool.h>
+	"funciones_bonachera.h"
+
+1729970762 source:c:\users\orneb\onedrive\documentos\universidad\materias\topicos de programacion\topicos-programacion\temas\bmp-manipuleitor-2\bmpmanipuleitor\funciones_grupo.c
+	"funciones_grupo.h"
+
+1729970762 c:\users\orneb\onedrive\documentos\universidad\materias\topicos de programacion\topicos-programacion\temas\bmp-manipuleitor-2\bmpmanipuleitor\funciones_grupo.h
+	"funciones_machi.h"
+	"funciones_bonachera.h"
+	"funciones_fernandez.h"
+	"funciones_risso.h"
+
+1729970762 source:c:\users\orneb\onedrive\documentos\universidad\materias\topicos de programacion\topicos-programacion\temas\bmp-manipuleitor-2\bmpmanipuleitor\funciones_risso.c
+	"funciones_risso.h"
+	"funciones_bonachera.h"
+	"funciones_fernandez.h"
+
+1729949299 source:c:\users\orneb\onedrive\documentos\universidad\materias\topicos de programacion\topicos-programacion\temas\bmp-manipuleitor-2\bmpmanipuleitor\main.c
+	<stdio.h>
+	"funciones_grupo.h"
+
+1729971193 source:c:\users\orneb\onedrive\documentos\universidad\materias\topicos de programacion\topicos-programacion\temas\bmp-manipuleitor-2\bmpmanipuleitor\funciones_bonachera.c
+	"funciones_bonachera.h"
+	"funciones_fernandez.h"
+
