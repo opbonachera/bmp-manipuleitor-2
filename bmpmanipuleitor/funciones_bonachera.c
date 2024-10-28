@@ -123,14 +123,14 @@ int rotarImagenIzquierda(FILE* imagenOriginal, char* nombreNuevoArchivo)
     leerCabecera(imagenOriginal, &cabeceraOriginal);
     escribirCabecera(imagenOriginal, nuevaImagen, &cabeceraOriginal);
 
-
     t_pixel** matImagen = (t_pixel**)matrizCrear(sizeof(t_pixel), cabeceraOriginal.alto, cabeceraOriginal.ancho);
     t_pixel** matNuevaImagen = (t_pixel**)matrizCrear(sizeof(t_pixel), cabeceraOriginal.ancho, cabeceraOriginal.alto);
 
-    for(int y = 0; y < cabeceraOriginal.alto; y++) {
-        for(int x = 0; x < cabeceraOriginal.ancho; x++) {
-            fread(&matImagen[y][x], sizeof(unsigned char), 3, imagenOriginal);
-            matNuevaImagen[x][cabeceraOriginal.alto - 1 - y] = matImagen[y][x];
+    cargarMatriz(imagenOriginal, matImagen, cabeceraOriginal.alto, cabeceraOriginal.ancho);
+
+    for(int i = 0; i < cabeceraOriginal.alto; i++) {
+        for(int j = 0; j < cabeceraOriginal.ancho; j++) {
+            matNuevaImagen[j][cabeceraOriginal.alto - i - 1] = matImagen[i][j];
         }
     }
 
@@ -170,9 +170,9 @@ int espejarImagenHorizontal(FILE* imagenOriginal, char* nombreNuevoArchivo)
 
     cargarMatriz(imagenOriginal, matImagen, cabeceraOriginal.alto, cabeceraOriginal.ancho);
 
-    for (int y = 0; y < cabeceraOriginal.alto; y++) {
-        for (int x = 0; x < cabeceraOriginal.ancho; x++) {
-            matNuevaImagen[y][x] = matImagen[y][cabeceraOriginal.ancho - 1 - x];
+    for (int i = 0; i < cabeceraOriginal.alto; i++) {
+        for (int j = 0; j < cabeceraOriginal.ancho; j++) {
+            matNuevaImagen[i][j] = matImagen[i][cabeceraOriginal.ancho - 1 - j];
         }
     }
 
@@ -211,9 +211,9 @@ int espejarImagenVertical(FILE* imagenOriginal, char* nombreNuevoArchivo)
 
     cargarMatriz(imagenOriginal, matImagen, cabeceraOriginal.alto, cabeceraOriginal.ancho);
 
-    for (int y = 0; y < cabeceraOriginal.alto; y++) {
-        for (int x = 0; x < cabeceraOriginal.ancho; x++) {
-            matNuevaImagen[y][x] = matImagen[cabeceraOriginal.alto - 1 - y][x];
+    for (int i = 0; i < cabeceraOriginal.alto; i++) {
+        for (int j = 0; j < cabeceraOriginal.ancho; j++) {
+            matNuevaImagen[i][j] = matImagen[cabeceraOriginal.alto - 1 - i][j];
         }
     }
 

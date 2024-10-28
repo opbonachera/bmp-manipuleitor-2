@@ -11,7 +11,7 @@
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option parameters="unlam.bmp --agrandar=50" />
+				<Option parameters="unlam.bmp dos.bmp --espejar-horizontal --espejar-vertical --aumentar-contraste=10 --reducir-contraste=10 --tonalidad-azul=10 --tonalidad-verde=10 --tonalidad-roja=10 --recortar=10 --achicar=10 --rotar-derecha --rotar-izquierda --concatenar-horizontal --concatenar-vertical --comodin --negativo " />
 				<Compiler>
 					<Add option="-g" />
 				</Compiler>
